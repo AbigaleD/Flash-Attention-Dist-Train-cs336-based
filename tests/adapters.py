@@ -32,7 +32,8 @@ def get_flashattention_autograd_function_triton() -> Type:
         A class object (not an instance of the class)
     """
     # For example: return MyTritonFlashAttentionAutogradFunctionClass
-    raise NotImplementedError
+    from cs336_systems.attention import MyFlashAttentionTriton
+    return MyFlashAttentionTriton
 
 
 def get_ddp_individual_parameters(module: torch.nn.Module) -> torch.nn.Module:
@@ -138,4 +139,5 @@ def get_sharded_optimizer(params, optimizer_cls: Type[torch.optim.Optimizer], **
     Returns:
         Instance of sharded optimizer.
     """
-    raise NotImplementedError
+    from cs336_systems.sharded_optimizer import ShardedOptimizer
+    return ShardedOptimizer(params, optimizer_cls, **kwargs)

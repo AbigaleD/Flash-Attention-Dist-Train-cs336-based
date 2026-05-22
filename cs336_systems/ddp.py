@@ -41,7 +41,7 @@ class DDPIndividualParameters(torch.nn.Module):
 
 
 class DDPBucketed(torch.nn.Module):
-    def __init__(self, module: torch.nn.Module, bucket_size_mb: float):
+    def __init__(self, module: torch.nn.Module, bucket_size_mb: float | None):
         super().__init__()
         self.module = module
 
@@ -53,7 +53,7 @@ class DDPBucketed(torch.nn.Module):
         self._buckets = []  # list of lists of params
         self._param_to_bucket = {}  # param -> bucket index
 
-        bucket_size_bytes = bucket_size_mb * 1024 * 1024
+        bucket_size_bytes = float("inf") if bucket_size_mb is None else bucket_size_mb * 1024 * 1024
         current_bucket = []
         current_size = 0
 
